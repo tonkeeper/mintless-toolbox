@@ -1,4 +1,7 @@
 
+# Mintless Toolbox
+
+Mintless Toolbox is a set of tools to work with the new Mintless Jetton standard in TON.
 
 # Installation
 
@@ -16,11 +19,24 @@ make will compile the code and put the binary in the `bin` folder.
 ./bin/mintless-cli --help
 ```
 
-Currently, there is a single command available:
+Currently, there are two commands available:
 
 ```bash
 ./bin/mintless-cli dump <airdrop-filename> 
 ```
 
-dump reads an airdrop file and dump it to the console in the format 
-`address,amount,start_from,expire_at`
+dump reads an airdrop file and dumps it to the console in the format 
+`wallet address,amount,start_from,expire_at`
+
+```bash
+./bin/mintless-cli hash <airdrop-filename> 
+```
+
+hash reads an airdrop file and prints its root's hash.
+A mintless Jetton Master has to return the same hash with
+`get_mintless_airdrop_hashmap_root`.
+
+
+# Links
+
+The [reference implementation](https://github.com/ton-community/mintless-jetton/tree/main) of the Mintless Jetton.

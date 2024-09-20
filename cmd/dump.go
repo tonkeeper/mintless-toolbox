@@ -15,9 +15,9 @@ import (
 func newDumpCmd(out io.Writer) *cobra.Command {
 	options := dumpOptions{}
 	cmd := &cobra.Command{
-		Use:  "dump",
+		Use:  "dump <airdrop-file>",
 		Args: cobra.ExactArgs(1),
-		Long: "dump extract data from airdrop file and dump it to a terminal in csv format.",
+		Long: "dump extracts data from airdrop file and dumps it to a terminal in csv format.",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			options.airdropFile = args[0]
 			return dump(cmd.Context(), options, out)
@@ -45,7 +45,9 @@ func dump(ctx context.Context, options dumpOptions, out io.Writer) error {
 	airdropCells, err := deserialize(content)
 	if err != nil {
 		return fmt.Errorf("failed to deserialize airdrop file: %w", err)
-
+	}
+	if len(airdropCells) != 1 {
+		return fmt.Errorf("invalid airdrop file: expected 1 cell, got %d", len(airdropCells))
 	}
 	var m tlb.Hashmap[Address, AirdropData]
 	if err := tlb.Unmarshal(airdropCells[0], &m); err != nil {

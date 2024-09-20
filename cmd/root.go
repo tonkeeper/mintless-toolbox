@@ -10,12 +10,13 @@ import (
 func newRootCmd(out io.Writer) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:           "mintless-cli",
-		Version:       "0.0.1",
+		Version:       "0.0.2",
 		SilenceErrors: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return cmd.Usage()
 		},
 	}
 	cmd.AddCommand(newDumpCmd(out))
+	cmd.AddCommand(newHashCmd(out))
 	return cmd
 }
